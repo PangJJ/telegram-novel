@@ -1,0 +1,1 @@
+- Telegram's max message length is 4096 UTF-8, to implement "paging" of message
