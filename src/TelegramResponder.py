@@ -78,7 +78,7 @@ class TelegramHandler():
             data = json_data["message"]
         return (data["text"], data["chat"]["id"])
 
-    def change_chapter_name(self, selector, chat_id):
+    def crawl_chapter_name(self, selector, chat_id):
         self.chapter_title = selector.split(" ")[1]
 
         glossary_crawler = GlossaryCrawler(self.glossary_url, 
@@ -88,10 +88,14 @@ class TelegramHandler():
 
         return
 
+    def change_chapter_name(self, selector, chat_id):
+        self.chapter_title = selector.split(" ")[1]
+
     def default_selector_router(self, selector, chat_id):
         router = {
             "/start": (self.send_message, (chat_id, "Welcome")),
-            "/crawl": (self.change_chapter_name, (selector,chat_id))
+            "/crawl": (self.crawl_chapter_name, (selector,chat_id)),
+            "/chnge": (self.change_chapter_name, (selector,chat_id))
         }
 
         try:
